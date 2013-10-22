@@ -20,26 +20,29 @@ function Client(opts) {
   }
 }
 
-Client.prototype._handleByStatusCode = function(statusCode, callbacks) {
+Client.prototype._handleByStatusCode = function(name, statusCode, callbacks) {
   if (statusCode === 200) {
     callbacks.success();
   } else if (statusCode === 304) {
     callbacks.cache();
   } else if (/^4/.test(statusCode)) {
-    callbacks.err(Err('ClientError: ' + statusCode, {
+    callbacks.err(Err('ClientError: ' + statusCode + ' package: ' + name, {
       code        : statusCode,
-      clientError : true
+      clientError : true,
+      pkg         : name
     }));
   } else if (/^5/.test(statusCode)) {
-    callbacks.err(Err('ServerError: ' + statusCode, {
+    callbacks.err(Err('ServerError: ' + statusCode + ' package: ' + name, {
       code        : statusCode,
-      serverError : true
+      serverError : true,
+      pkg         : name
     }));
   } else {
     // bad statusCode
-    callbacks.err(Err('Bad statusCode: ' + statusCode, {
+    callbacks.err(Err('Bad statusCode: ' + statusCode + ' package: ' + name, {
       code          : statusCode,
-      badStatusCode : true
+      badStatusCode : true,
+      pkg           : name
     }));
   }
 };
@@ -90,7 +93,7 @@ Client.prototype.fetch = function(name, callback) {
     req = request(opts);
 
     req.on('response', function(res) {
-      that._handleByStatusCode(res.statusCode, {
+      that._handleByStatusCode(name, res.statusCode, {
         err     : callback,
         success : function() {
           var result = {};
