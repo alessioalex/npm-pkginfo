@@ -1,0 +1,45 @@
+{
+  "name": "npm-pkginfo",
+  "version": "0.0.1",
+  "description": "Lightweight version of npm-registry-client#get with configurable cache stores.",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --ui bdd --recursive --reporter spec --timeout 10000 --slow 300"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alessioalex/npm-pkginfo"
+  },
+  "keywords": [
+    "npm",
+    "registry",
+    "package",
+    "npminfo"
+  ],
+  "author": "Alexandru Vladutu <alexandru.vladutu@gmail.com> (http://careers.stackoverflow.com/alessioalex)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alessioalex/npm-pkginfo/issues"
+  },
+  "dependencies": {
+    "once": "1.2.x",
+    "JSONStream": "0.7.x",
+    "custom-err": "0.0.x",
+    "errto": "0.2.x",
+    "graceful-fs": "2.0.x",
+    "mkdirp": "0.3.x",
+    "chownr": "0.0.x",
+    "try-json-parse": "0.0.x",
+    "nop": "0.0.x",
+    "rimraf": "2.2.x",
+    "request": "2.27.x"
+  },
+  "devDependencies": {
+    "once": "1.2.x",
+    "mocha": "1.13.x",
+    "errto": "0.2.x",
+    "after": "0.8.x",
+    "nock": "0.22.x",
+    "should": "2.0.x"
+  }
+}
