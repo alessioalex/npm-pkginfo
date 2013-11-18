@@ -13,6 +13,8 @@ function Client(opts) {
 
   opts = opts || {};
   this.REGISTRY_URL = opts.REGISTRY_URL || 'http://registry.npmjs.org';
+  this.REGISTRY_URL = this.REGISTRY_URL.replace(/\/$/, '');
+
   if (!opts.cacheStore) {
     this.cacheStore = new FsStore({ dir: opts.cacheDir });
   } else {
@@ -26,23 +28,26 @@ Client.prototype._handleByStatusCode = function(name, statusCode, callbacks) {
   } else if (statusCode === 304) {
     callbacks.cache();
   } else if (/^4/.test(statusCode)) {
-    callbacks.err(Err('ClientError: ' + statusCode + ' package: ' + name, {
+    callbacks.err(Err('npm-pkginfo: ClientError: ' + statusCode + ' package: ' + name, {
       code        : statusCode,
       clientError : true,
-      pkg         : name
+      pkg         : name,
+      registry    : this.REGISTRY_URL
     }));
   } else if (/^5/.test(statusCode)) {
-    callbacks.err(Err('ServerError: ' + statusCode + ' package: ' + name, {
+    callbacks.err(Err('npm-pkginfo: ServerError: ' + statusCode + ' package: ' + name, {
       code        : statusCode,
       serverError : true,
-      pkg         : name
+      pkg         : name,
+      registry    : this.REGISTRY_URL
     }));
   } else {
     // bad statusCode
-    callbacks.err(Err('Bad statusCode: ' + statusCode + ' package: ' + name, {
+    callbacks.err(Err('npm-pkginfo: Bad statusCode: ' + statusCode + ' package: ' + name, {
       code          : statusCode,
       badStatusCode : true,
-      pkg           : name
+      pkg           : name,
+      registry      : this.REGISTRY_URL
     }));
   }
 };
