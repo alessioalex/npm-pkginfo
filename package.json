@@ -1,6 +1,6 @@
 {
   "name": "npm-pkginfo",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Lightweight version of npm-registry-client#get with configurable cache stores.",
   "main": "index.js",
   "scripts": {
